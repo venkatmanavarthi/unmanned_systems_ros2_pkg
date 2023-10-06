@@ -55,11 +55,14 @@ class OdomLocNode(Node):
 		self.orientation_euler[0] = roll
 		self.orientation_euler[1] = pitch 
 		self.orientation_euler[2] = yaw
+
+		self.linear_vel_x = msg.twist.twist.linear.x
+		self.angular_vel_z = msg.twist.twist.angular.z
 		
 		print("yaw is", np.degrees(self.orientation_euler[2]))
 
 def main():
-	FILEPATH = "/home/justin/ros2_ws/src/unmanned_systems_ros2_pkg/unmanned_systems_ros2_pkg/log/"
+	FILEPATH = "/home/venkatmanavarthi/ros2_ws/src/unmanned_systems_ros2_pkg/unmanned_systems_ros2_pkg/log/"
 	FILENAME = "dumpster_log.csv"
 
 	print(os.getcwd())
@@ -113,8 +116,8 @@ def main():
 			odom_node.current_position[0], 
 			odom_node.current_position[1],
 			odom_node.orientation_euler[2],
-			#vx, 
-			#angular z 
+			odom_node.linear_vel_x, 
+			odom_node.angular_vel_z 
 			]
 
 		# stick everything in the file

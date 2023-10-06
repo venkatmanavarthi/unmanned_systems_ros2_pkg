@@ -92,10 +92,10 @@ def main()->None:
     rate = turtlebot_node.create_rate(rate_val)
     
     des_x_position = 7.0
-    cmd_vel = 1.0 #m/s
-    ang_vel = 0.5 #rad/s
+    cmd_vel = 1.5 #m/s
+    ang_vel = 0.15 #rad/s
     stop_vel = 0.0
-    time_duration = 5
+    time_duration = 12
     
     time_origin = get_time_in_secs(turtlebot_node)
     print("time now is", time_origin)
@@ -104,14 +104,15 @@ def main()->None:
         
         time_diff = get_time_in_secs(turtlebot_node) - time_origin 
         
-        if (time_diff <= time_duration):
-            turtlebot_node.move_turtle(cmd_vel, ang_vel)
+        if time_diff <= time_duration:
+            if time_diff <= 5:
+                turtlebot_node.move_turtle(cmd_vel, 0.0)
+            elif 5 < time_diff <= 7:
+                turtlebot_node.move_turtle(0.0, ang_vel)
+            elif 7 < time_diff <= 12:
+                turtlebot_node.move_turtle(cmd_vel, 0.0)
         else:
             turtlebot_node.move_turtle(stop_vel, 0.0)
-            # Destroy the node explicitly
-            # (optional - otherwise it will be done automatically
-            # when the garbage collector destroys the node object)
-            # turtlebot_node.destroy_node()
             rclpy.shutdown()
                 
         # if turtlebot_node.current_position[0] <= des_x_position:
