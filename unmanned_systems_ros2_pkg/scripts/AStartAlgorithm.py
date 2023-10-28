@@ -52,6 +52,7 @@ class AStartAlgorithm(Dijkstras):
             # if current node is the goal location the break our of the loop
             if (cur_node.x, cur_node.y) == goal:
                 route = []
+                print(cur_node.cost)
                 while cur_node_index != -1:
                     # print(self.visited[cur_node_index].g_cost, self.visited[cur_node_index].cost, self.visited[cur_node_index].h_cost, cur_node_index)
                     route.append([self.visited[cur_node_index].x, self.visited[cur_node_index].y])

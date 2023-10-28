@@ -148,9 +148,11 @@ class Dijkstras:
             # if current node is the goal location the break our of the loop
             if (cur_node.x, cur_node.y) == goal:
                 route = []
+                print(cur_node.cost)
                 while cur_node_index != -1:
                     route.append([self.visited[cur_node_index].x, self.visited[cur_node_index].y])
                     cur_node_index = self.visited[cur_node_index].parent_index
+
                 return route[::-1]
 
             all_neighbours = self.get_neighbour_moves(

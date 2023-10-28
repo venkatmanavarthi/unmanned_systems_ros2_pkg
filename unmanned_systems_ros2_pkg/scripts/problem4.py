@@ -114,10 +114,10 @@ def main()->None:
     # print([[each[0], each[1]] for each in route])
     # astart.plot_route(route=route)
 
-    dijkstras = Dijkstras(0, 0, 15, 15, 1)
-    route = dijkstras.run(start=(Start_x, Start_y), goal=(Goal_x, Goal_y), r_radius=0.5, obs_list=obs_list)
-    print([[each[0], each[1]] for each in route])
-    dijkstras.plot_route(route=route)
+    # dijkstras = Dijkstras(0, 0, 15, 15, 1)
+    # route = dijkstras.run(start=(Start_x, Start_y), goal=(Goal_x, Goal_y), r_radius=0.5, obs_list=obs_list)
+    # print([[each[0], each[1]] for each in route])
+    # dijkstras.plot_route(route=route)
 
     # rrt = RRT(
     #     minx=0,
@@ -129,26 +129,48 @@ def main()->None:
     #     iterations=100000
     # )
 
-    # path, tree = rrt.run(start=(Start_x,Start_y), goal=(Goal_x, Goal_y))
-    # print([(each[0], each[1]) for each in path])
-    # # print(tree)
-    # plt.figure(figsize=(8, 6))
+    obs_radius = 0.1
+    Obstacle_x = [2, 2, 2, 2, 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 8, 9, 10, 11, 12, 13, 8, 8, 8,
+    8, 8, 8, 8, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5,
+    5, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 12, 12]
+
+    Obstacle_y = [2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 2, 3, 4, 5, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7,
+    8, 9, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 8, 9, 10, 11, 12, 13, 9, 10, 11, 12, 13,
+    14, 15, 12, 12, 12, 12, 12, 12, 8, 9, 10, 11, 12]
+    obs_list = [Obstacle(x, y, radius=0.1) for x, y in zip(Obstacle_x, Obstacle_y)]
+    
+    rrt = RRT(
+        minx=0,
+        maxx=15,
+        miny=0,
+        maxy=15,
+        gs=1.0,
+        obs_list=obs_list,
+        iterations=10000
+    )
+    path, tree = rrt.run(start=(1,1), goal=(7, 13))
+    plt.figure(figsize=(8, 6))
     # plt.plot([node.x for node in tree], [node.y for node in tree], 'bo', markersize=0.25 * 10)
 
-    # for obs in obs_list:
-    #     circle = plt.Circle((obs.x, obs.y), obs_radius, color='black')
-    #     plt.gca().add_patch(circle)
+    for obs in obs_list:
+        circle = plt.Circle((obs.x, obs.y), obs_radius, color='black')
+        plt.gca().add_patch(circle)
 
-    # plt.plot([point[0] for point in path], [point[1] for point in path], 'r')
+    print(path)
+    import time 
+    time.sleep(2.0)
 
-    # plt.plot(1, 1, 'ro', markersize=0.25 * 10)
-    # plt.plot(8, 9, 'go', markersize=0.25 * 10)
+    plt.plot([point[0] for point in path], [point[1] for point in path], 'r')
 
-    # plt.xlim(-1, 16)
-    # plt.ylim(-1, 16)
-    # plt.gca().set_aspect('equal', adjustable='box')
-    # plt.grid(True)
-    # plt.show()
+    # Draw start and goal nodes
+    plt.plot(1, 1, 'ro', markersize=0.25 * 10)
+    plt.plot(7, 13, 'go', markersize=0.25 * 10)
+
+    plt.xlim(-1, 16)
+    plt.ylim(-1, 16)
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.grid(True)
+    plt.show()
 
     rclpy.init(args=None)
     # print("starting")
@@ -179,8 +201,9 @@ def main()->None:
 
     MAX_AVG_SPEED = 2.84
     
-    waypoints = [[each[0], each[1]] for each in route]
-    
+    # waypoints = [[each[0], each[1]] for each in route]
+    waypoints = [[each[0], each[1]] for each in path[::-1]]
+
     tolerance = np.deg2rad(1.0)
     distance_error_tolreance = 0.15
     current_waypoint = 0
