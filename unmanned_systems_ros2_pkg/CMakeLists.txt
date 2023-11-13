@@ -42,6 +42,8 @@ install(PROGRAMS
   scripts/problem3.py
   scripts/problem4.py
   scripts/problem5.py
+  scripts/turtlebot_spawn.py
+  scripts/animated_pn.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()
