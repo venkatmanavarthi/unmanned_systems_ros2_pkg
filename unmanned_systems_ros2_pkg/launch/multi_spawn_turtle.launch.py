@@ -116,7 +116,7 @@ def generate_launch_description():
 	#Pursuer
 	evader = "evader"
 	foot_ninja_x = 2.0
-	foot_ninja_y = 1.0
+	foot_ninja_y = 2.0
 	foot_ninja_z = 0.00
 	spawn_yaw_val = 0.00
 	

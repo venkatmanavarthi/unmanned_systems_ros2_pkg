@@ -34,16 +34,14 @@ install(PROGRAMS
   scripts/python_node.py
   scripts/turtlebot_simple.py
   scripts/logger.py
-  scripts/ros2_hw_4_node.py
   scripts/turtlebot_pid.py
   scripts/turtlebot_wp.py
-  scripts/problem1.py
-  scripts/problem2.py
-  scripts/problem3.py
-  scripts/problem4.py
-  scripts/problem5.py
   scripts/turtlebot_spawn.py
   scripts/animated_pn.py
+  scripts/pn.py
+  scripts/logger_pursuit.py
+  scripts/evader.py
+  scripts/hw6problem1.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()
