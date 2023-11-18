@@ -71,7 +71,9 @@ def main() -> None:
         flight_path_rate = pro_nav.simple_pro_nav(
             global_heading_ref, dt
         )
-        
+        if flight_path_rate > 0.2:
+            flight_path_rate = 0.2
+            
         # do this command for half a second        
         print("flight path rate", flight_path_rate)
         old_evader_position = evader_position
