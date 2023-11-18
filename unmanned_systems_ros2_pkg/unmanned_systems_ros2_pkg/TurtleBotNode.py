@@ -44,6 +44,7 @@ class TurtleBotNode(Node):
         
         self.evader_position = [0,0]
         self.evader_velocity = [0,0]
+        self.scan_data = None
         
         self.detected_range_list = [] #depth detected
         self.detected_heading_angle_list = [] #heading detected
@@ -112,7 +113,7 @@ class TurtleBotNode(Node):
         inf = float('inf')
         
         lidar_vals = msg.ranges
-        
+        self.scan_data = msg.ranges
         #append detections if values not infinity or 0.0 
         for i, val in enumerate(lidar_vals):
             if val != inf:

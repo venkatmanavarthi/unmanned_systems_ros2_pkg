@@ -39,21 +39,16 @@ def main() -> None:
 
     turtlebot_pursuer = TurtleBotNode.TurtleBotNode('turtle', 'pursuer')    
     turtlebot_pursuer.move_turtle(0.0,0.0)
-    
-    #since our lidar is super slow we're going to set this node to match our
-    #lidar rate to about 3 times its sampling rate
+
     thread = threading.Thread(target=rclpy.spin, args=(turtlebot_pursuer, ), 
                               daemon=True)
     thread.start()
     rate = turtlebot_pursuer.create_rate(lidar_freq*3)
-    
-    # 5 works well for my side increase to make it more snappier on turns 
-    
-    #this value works well with simple pn
-    #pro_nav = ProNav.ProNav(1.5)    
-    
-    #this value works well with true pn
-    pro_nav = ProNav.ProNav(3.3)
+
+    # pro_nav = ProNav.ProNav(3.3) # original used in the first problem 
+    # pro_nav = ProNav.ProNav(0.33) 
+    # pro_nav = ProNav.ProNav(3.3)
+    pro_nav = ProNav.ProNav(33)
     
     dt = 1/lidar_freq
     old_evader_position = np.array([2,2])
@@ -74,17 +69,8 @@ def main() -> None:
         evader_position = np.array(turtlebot_pursuer.evader_position)
 
         evader_velocity = (evader_position - old_evader_position)/dt
-                
-        # flight_path_rate, cmd_vel = pro_nav.true_pro_nav(
-        #     np.array(turtlebot_pursuer.current_position), 
-        #     evader_position,
-        #     dt, 
-        #     evader_velocity, 
-        #     np.array(turtlebot_pursuer.current_velocity),
-        #     True, global_heading_ref    
-        # )
         
-        cmd_vel = 0.2
+        cmd_vel = 0.25
         flight_path_rate = pro_nav.simple_pro_nav(
             global_heading_ref, dt
         )

@@ -42,7 +42,11 @@ install(PROGRAMS
   scripts/logger_pursuit.py
   scripts/evader.py
   scripts/problem1.py
+  scripts/problem2.py
+  scripts/problem3.py
+  scripts/problem4.py
   scripts/problem5.py
+  scripts/problemsix.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()

@@ -53,7 +53,11 @@ def main() -> None:
     #pro_nav = ProNav.ProNav(1.5)    
     
     #this value works well with true pn
-    pro_nav = ProNav.ProNav(3.3)
+    # pro_nav = ProNav.ProNav(3.4) # original
+    # pro_nav = ProNav.ProNav(0.34)
+    # pro_nav = ProNav.ProNav(3.4)
+    pro_nav = ProNav.ProNav(34.0)
+
     
     dt = 1/lidar_freq
     old_evader_position = np.array([2,2])
@@ -75,18 +79,13 @@ def main() -> None:
 
         evader_velocity = (evader_position - old_evader_position)/dt
                 
-        # flight_path_rate, cmd_vel = pro_nav.true_pro_nav(
-        #     np.array(turtlebot_pursuer.current_position), 
-        #     evader_position,
-        #     dt, 
-        #     evader_velocity, 
-        #     np.array(turtlebot_pursuer.current_velocity),
-        #     True, global_heading_ref    
-        # )
-        
-        cmd_vel = 0.2
-        flight_path_rate = pro_nav.simple_pro_nav(
-            global_heading_ref, dt
+        flight_path_rate, cmd_vel = pro_nav.true_pro_nav(
+            np.array(turtlebot_pursuer.current_position), 
+            evader_position,
+            dt, 
+            evader_velocity, 
+            np.array(turtlebot_pursuer.current_velocity),
+            True, global_heading_ref    
         )
         
         # do this command for half a second        
