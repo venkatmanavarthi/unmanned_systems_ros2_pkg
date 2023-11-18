@@ -51,7 +51,7 @@ def main() -> None:
     turtlebot_evader.current_position = [2.0, 2.0]
     turtlebot_evader.move_turtle(0.0,0.0)
 
-    set_random = False
+    set_random = True
     is_done = False
     n_random_waypoints =  3
     heading_tol = 0.1; #radians

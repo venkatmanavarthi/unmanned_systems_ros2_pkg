@@ -46,7 +46,8 @@ install(PROGRAMS
   scripts/problem3.py
   scripts/problem4.py
   scripts/problem5.py
-  scripts/problemsix.py
+  scripts/problem6.py
+  scripts/problem7.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()
