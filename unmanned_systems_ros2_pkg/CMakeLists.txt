@@ -41,6 +41,8 @@ install(PROGRAMS
   scripts/pn.py
   scripts/logger_pursuit.py
   scripts/evader.py
+  scripts/problem2_final.py
+  scripts/evader_problem2_final.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()
