@@ -56,7 +56,7 @@ def main() -> None:
     pro_nav = ProNav.ProNav(3.4)
     
     dt = 1/lidar_freq
-    old_evader_position = np.array([2, 1])
+    old_evader_position = np.array([2,2])
     
     while rclpy.ok():
         
@@ -84,6 +84,8 @@ def main() -> None:
             True, global_heading_ref    
         )
         
+        # do this command for half a second        
+        print("flight path rate", flight_path_rate)
         old_evader_position = evader_position
         turtlebot_pursuer.move_turtle(cmd_vel, flight_path_rate)
         
