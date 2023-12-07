@@ -56,7 +56,7 @@ def main() -> None:
     pro_nav = ProNav.ProNav(3.4)
     
     dt = 1/lidar_freq
-    old_evader_position = np.array([2,2])
+    old_evader_position = np.array([2,1])
     
     while rclpy.ok():
         

@@ -51,9 +51,7 @@ def main() -> None:
     turtlebot_evader.current_position = [2.0, 1.0]
     turtlebot_evader.move_turtle(0.0,0.0)
 
-    set_random = True
     is_done = False
-    n_random_waypoints =  3
     heading_tol = 0.1; #radians
     dist_tolerance = 0.25 #meters
     
@@ -73,7 +71,7 @@ def main() -> None:
     route = dijkstras.run(start=(Start_x, Start_y), goal=(Goal_x, Goal_y), r_radius=0.1, obs_list=obs_list)
     waypoints = [[each[0], each[1]] for each in route]
     print(waypoints)
-    dijkstras.plot_route(route=route)
+    # dijkstras.plot_route(route=route)
     while rclpy.ok():
 
         if is_done == True:
