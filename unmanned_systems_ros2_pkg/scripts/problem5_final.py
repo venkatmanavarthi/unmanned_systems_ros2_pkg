@@ -199,11 +199,11 @@ def genetic_algorithm(
         pop.select(n_population * selectivity)
         history.append(pop.score)
         if verbose:
-            pass
-            # print(f"Generation {i}: {pop.score}")
+            # pass
+            print(f"Generation {i}: {pop.score}")
         elif i % print_interval == 0:
-            pass
-            # print(f"Generation {i}: {pop.score}")
+            # pass
+            print(f"Generation {i}: {pop.score}")
         if pop.score < score:
             best = pop.best
             score = pop.score
@@ -214,7 +214,7 @@ def genetic_algorithm(
     return best
 # print(adjacency_mat)
 #returns the best order of waypoinst to visit
-best = genetic_algorithm(cities, adjacency_mat, verbose=False, n_population=500, n_iter=2000)
+best = genetic_algorithm(cities, adjacency_mat, verbose=True, n_population=500, n_iter=2000)
 #add the starting point to the list of waypoints
 best = np.insert(best, 0, 0)
 

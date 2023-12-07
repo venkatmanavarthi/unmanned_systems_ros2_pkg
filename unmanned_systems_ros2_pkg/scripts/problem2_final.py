@@ -86,6 +86,10 @@ def main() -> None:
         
         # do this command for half a second        
         print("flight path rate", flight_path_rate)
+        if cmd_vel > 0.2:
+            cmd_vel = 0.2
+        if flight_path_rate > 0.2:
+            flight_path_rate = 0.2
         old_evader_position = evader_position
         turtlebot_pursuer.move_turtle(cmd_vel, flight_path_rate)
         
