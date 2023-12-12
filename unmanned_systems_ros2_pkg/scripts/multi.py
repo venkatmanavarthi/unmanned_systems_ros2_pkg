@@ -12,12 +12,39 @@ import matplotlib.pyplot as plt
 import random
 import time
 import math as m
-from Dijkstras import Obstacle, compute_index
-from AStartAlgorithm import AStartAlgorithm
+import dijktras_astar
 
 random.seed(1)
 obs_positions = []
+import numpy as np
 
+class Obstacle():
+    """
+    This makes a point obstacle with a radius 
+    Takes in an x coordinate and y coordinate and
+    radius in meters
+    """
+    def __init__(self, x_pos:float, y_pos:float, radius:float) -> None:
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.radius = radius
+        
+    def is_inside(self,curr_x:float, curr_y:float, 
+                  robot_radius:float=0) -> bool:
+        """
+        Compute euclidean distance from current location -> obstacle locatin
+        Store this value in a variable: dist_from 
+        If dist_from > obstacle size:
+                return false
+        Otherwise return true
+        """
+        dist_from = np.sqrt((curr_x - self.x_pos)**2 + (curr_y - self.y_pos)**2)
+        
+        if dist_from > self.radius + robot_radius:
+            return False
+        
+        return True
+    
 class Agent:
     def __init__(self, i, xi, yi, speed, N_tasks, color):
         self.i = i # my index
@@ -27,13 +54,16 @@ class Agent:
         self.goal_task = [float('inf'), -1] # [cost to do it, which task I want to do]
         self.team_bids = [[float('inf'),-1]]*N_tasks # [their bid, agent who bid]
         self.color = str(color) # my color
+        self.obs_list = None
+        self.astar = dijktras_astar.DjikstraAstar()
    
     def find_best_task(self, tasks):
         # initialize search stuff
         min_cost = float('inf') # set cost to inf so I will find something
         min_i = -1 # tracks best task index
-        obs_list = [Obstacle(x=ob[0], y=ob[1], radius=0.2) for ob in obs_positions]
-        self.astart = AStartAlgorithm(0, 0, 100, 100, 0.5)
+        if self.obs_list is None:
+            obs_list = [Obstacle(x=ob[0], y=ob[1], radius=0.2) for ob in obs_positions]
+        #0, 0, 100, 100, 0.5
         #print('pos: ', self.x, ',', self.y)
         for i, task in enumerate(tasks): # search over all tasks
             if task.active: # don't do tasks that are done
